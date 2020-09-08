@@ -12,9 +12,25 @@ class Entry(db.Model):
     pump_state = db.Column(db.Boolean)
     light_state = db.Column(db.Boolean)
 
-    def __init__(self, name, email):
-        self.name = name
-        self.email = email
+    def __init__(self, humidity, temp, fan_state, pump_state, light_state):
+        self.humidity = humidity
+        self.temp = temp
+        self.fan_state = fan_state
+        self.pump_state = pump_state
+        self.light_state = light_state
 
     def __repr__(self):
         return '<User %r>' % self.name
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'humidity': self.humidity,
+            'temp': self.temp,
+            'date': self.date,
+            'fan_state': self.fan_state,
+            'pump_state': self.pump_state,
+            'light_state': self.light_state
+            }
+
+db.create_all()
